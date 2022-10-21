@@ -34,5 +34,5 @@ if(isset($data['action'])){
         <input type="submit" value="Enviar">
     </form>
     <br>
-    <a href="index.php">Volver</a>';
+    <a href="index.php?controller=timeSlotsController&action=showTimeSlots">Volver</a>';
 }

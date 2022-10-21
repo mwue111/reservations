@@ -8,7 +8,6 @@ if(isset($data['action'])){
     echo '<form action="index.php?controller=resourcesController&action=' . $data['action'] . '" method="POST" enctype="multipart/form-data">';
     
     if(isset($data['oldData'])){
-        var_dump($data['oldData']);
         foreach($data['oldData'] as $oldData){
             echo '<input type="hidden" name="id" value="' . $oldData['id'] . '">';
 
@@ -24,11 +23,14 @@ if(isset($data['action'])){
         <br>
         <br>
         <label for="resourceLocation">Ubicación del recurso: </label>
-        <input type="text" name="resourceLocation" required value="' . $data['location'] . '">
+        <input type="text" name="resourceLocation" required value="' . $oldData['location'] . '">
         <br>
         <br>
         <label for="resourceImage">Subir foto del recurso: </label>
         <input type="file" name="resourceImage">
+        <br>
+        <p>Imagen anterior:</p>
+        <img src="' . $oldData['image'] . '" style="width:10%"></img>
         <br>
         <br>
         <input type="submit" value="Enviar">

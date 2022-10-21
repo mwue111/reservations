@@ -22,8 +22,8 @@ foreach($ts as $timeSlot){
             <td>' . $timeSlot['day_of_week'] . '</td>
             <td>' . $timeSlot['start_time'] . '</td>
             <td>' . $timeSlot['end_time'] . '</td>
-            <td><a href="index.php?controller=timeSlotsController&action=deleteTime&id=' . $timeSlot['id'] . '">Eliminar</td>
-            <td><a href="index.php?controller=timeSlotsController&action=changeTime&id=' . $timeSlot['id'] . '">Editar</td>
+            <td><a href="index.php?controller=timeSlotsController&action=deleteTime&id=' . $timeSlot['id'] . '">Eliminar</a></td>
+            <td><a href="index.php?controller=timeSlotsController&action=changeTime&id=' . $timeSlot['id'] . '">Editar</a></td>
         </tr>';
 }
 
