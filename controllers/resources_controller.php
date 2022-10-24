@@ -28,12 +28,19 @@ class resourcesController{
     }
 
     public function showResources($text = null){
-        if(isset($_REQUEST['message'])){
-            echo '<strong>' . $_REQUEST['message'] . '</strong><br><br><a href="index.php?controller=resourcesController">Cerrar</a>';
+        if(isset($_SESSION['idUser'])){
+            if(isset($_REQUEST['message'])){
+                echo '<strong>' . $_REQUEST['message'] . '</strong><br><br><a href="index.php?controller=resourcesController">Cerrar</a>';
+            }
+            
+            $data['resourcesList'] = $this->resource->getAll();
+            View::render("resource/show", $data);
+        }
+        else{
+            $data['error'] = 'No tienes permiso para ves esto todavía.';
+            header("Location:index.php?controller=loginController&action=formLogin");
         }
         
-        $data['resourcesList'] = $this->resource->getAll();
-        View::render("resource/show", $data);
     }
 
     //esta función sólo llama a la vista con el formulario

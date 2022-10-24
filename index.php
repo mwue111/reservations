@@ -1,7 +1,7 @@
 <?php   //index: llama al controlador que corresponda
 
 //Inicio de la sesión:
-//session_start()
+session_start();
 
 include_once("models/security.php");
 
@@ -15,7 +15,7 @@ if(isset($_REQUEST['controller'])){
     $controller = $_REQUEST['controller'];  //+ "Controller"; da error.
 }
 else{
-    $controller = "resourcesController";
+    $controller = "loginController";
 }
 
 //Comprueba si hay algún método que hacer y redirige al que corresponda:
@@ -23,7 +23,7 @@ if(isset($_REQUEST['action'])){
     $action = $_REQUEST['action'];
 }
 else{
-    $action = "showResources";  //"login"
+    $action = "formLogin";  //"login"
 }
 
 //Crear el objeto y llamar a action para que ejecute el método establecido:

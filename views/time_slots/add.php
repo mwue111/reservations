@@ -14,21 +14,29 @@ if(isset($data['action'])){
     if(isset($data['oldTime'])){
         
         foreach($data['oldTime'] as $oldTime){
+            $oldDay = $oldTime['day_of_week'];
+            $oldStart = $oldTime['start_time'];
+            $oldEnd = $oldTime['end_time'];
 
             echo '<input type="hidden" name="id" value="' . $oldTime['id'] . '">';
         }
     }
+    else{
+        $oldDay = null;
+        $oldStart = null;
+        $oldEnd = null;
+    }
 
     echo '<label for="newDay">Añade el día:</label>
-        <input type="number" name="newDay" required value="' . $oldTime['day_of_week'] . '">
+        <input type="number" name="newDay" required value="' . $oldDay . '">
         <br>
         <br>
         <label for="newStart">Hora de inicio:</label>
-        <input type="time" name="newStart" required value="' . $oldTime['start_time'] . '">
+        <input type="time" name="newStart" required value="' . $oldStart . '">
         <br>
         <br>
         <label for="newEnd">Hora de fin:</label>
-        <input type="time" name="newEnd" required value="' . $oldTime['end_time'] . '">
+        <input type="time" name="newEnd" required value="' . $oldEnd . '">
         <br>
         <br>
         <input type="submit" value="Enviar">

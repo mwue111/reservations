@@ -10,12 +10,19 @@ if(isset($data['action'])){
 
     if(isset($data['oldUser'])){
         foreach($data['oldUser'] as $oldUser){
-            $oldName = $oldUSer['username'];
+            $oldName = $oldUser['username'];
+            $oldPass = $oldUser['password'];
+            $oldRealName = $oldUser['realname'];
+            $oldType = $oldUser['type'];
             echo '<input type="hidden" name="id" value="' . $oldUser['id'] . '">';
 
         }
+    }else{
+        $oldName = null;
+        $oldPass = null;
+        $oldRealName = null;
+        $oldType = null;
     }
-
     echo '<label for="userName">Nombre de usuario/a:</label>
         <br>
         <input type="text" name="userName" value="' . $oldName . '" required>
@@ -23,21 +30,23 @@ if(isset($data['action'])){
         <br>
         <label for="passwd">Contraseña:</label>
         <br>
-        <input type="password" name="passwd" value="' . $oldUser['password'] . '" required>
+        <input type="password" name="passwd" value="' . $oldPass . '" required>
         <br>
         <br>
         <label for="realName">Nombre real del usuario/a:</label>
         <br>
-        <input type="text" name="realName" value="' . $oldUser['realname'] . '" required>
+        <input type="text" name="realName" value="' . $oldRealName . '" required>
         <br>
         <br>
         <label for="userType">Tipo:</label>
         <br>
-        <input type="number" name="userType" value="' . $oldUser['type'] . '" required>
+        <input type="number" name="userType" value="' . $oldType . '" required>
         <br>
         <br>
         <input type="submit" value="Enviar">
         </form>
         <br>
         <a href="index.php?controller=usersController&action=showUsers">Volver</a>';
+
+    
 }

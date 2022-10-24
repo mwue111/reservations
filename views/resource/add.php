@@ -9,13 +9,26 @@ if(isset($data['action'])){
     
     if(isset($data['oldData'])){
         foreach($data['oldData'] as $oldData){
+            $oldName = $oldData['name'];
+            $oldLocation = $oldData['location'];
+            $oldImage = $oldData['image'];
             echo '<input type="hidden" name="id" value="' . $oldData['id'] . '">';
+            echo '<br>
+            <p>Imagen anterior:</p>
+            <img src="' . $oldImage . '" style="width:10%"></img>
+            <br>
+            <br>';
 
         }
     }
+    else{
+        $oldName = null;
+        $oldLocation = null;
+        $oldImage = null;
+    }
 
     echo '<label for="resourceName">Nombre del recurso:</label>
-        <input type="text" name="resourceName" required value="' . $oldData['name'] . '">
+        <input type="text" name="resourceName" required value="' . $oldName . '">
         <br>
         <br>
         <label for="resourceDescription">Descripción del recurso: </label>
@@ -23,15 +36,11 @@ if(isset($data['action'])){
         <br>
         <br>
         <label for="resourceLocation">Ubicación del recurso: </label>
-        <input type="text" name="resourceLocation" required value="' . $oldData['location'] . '">
+        <input type="text" name="resourceLocation" required value="' . $oldLocation . '">
         <br>
         <br>
         <label for="resourceImage">Subir foto del recurso: </label>
         <input type="file" name="resourceImage">
-        <br>
-        <p>Imagen anterior:</p>
-        <img src="' . $oldData['image'] . '" style="width:10%"></img>
-        <br>
         <br>
         <input type="submit" value="Enviar">
     </form>
