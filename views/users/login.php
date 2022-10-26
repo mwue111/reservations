@@ -1,15 +1,18 @@
 <?php       //formulario de login
 
-if(isset($data['error'])){
-    echo '<h2 style="border: 2px solid red">' . $data['error'] . '</h2>';
+if(isset($data['info'])){
+    echo '<h2>' . $data['info'] . '</h2>';
 }
-else{
-    if(isset($data['info'])){
-        echo '<h2> Login - ' . $data['info'] . '</h2>';
-    }   
-    
-    echo '
-    <form action="index.php?controller=loginController&action=checkLogin" method="POST" style="border: 1px dotted black;">
+if(isset($data['message'])){
+    echo '<p>' . $data['message'] . '</p>';
+}
+if(isset($data['error'])){
+    echo '<h3 style="color:red;">Usuario o contraseña incorrectos.</h3>';
+    //echo '<h3 style="color:red;">' . $data['error'] . '</h3>';
+}
+
+echo '
+    <form action="index.php?controller=loginController&action=checkLogin" method="POST" enctype="multipart/form-data">
         <label for="userName">Nombre de usuario:</label>
         <br>
         <input type="text" name="userName">
@@ -17,6 +20,7 @@ else{
         <label for="userPass">Contraseña: </label>
         <br>
         <input type="text" name="userPass">
+        <br>
         <br>
         <input type="submit" value="Acceder">
     </form>';
@@ -34,4 +38,3 @@ else{
         <input type="number" name="type">
 
     */
-}

@@ -12,8 +12,14 @@ class LoginController{
 
     //función para mostrar el formulario de login:
     public function formLogin(){
+        if(isset($_REQUEST['message'])){
+            $data['message'] = $_REQUEST['message'];
+        }
+        if(isset($_REQUEST['error'])){
+            $data['error'] = $_REQUEST['error'];
+        }
         $data['info'] = "Iniciar sesión";
-        View::render("users/login");
+        View::render("users/login", $data);
     }
 
     //función que comprueba si los datos del login son correctos: si son correctos, redirige a otra vista.
@@ -27,7 +33,9 @@ class LoginController{
             header("Location:index.php?controller=resourcesController&action=showResources");
         }
         else{
-            $data['error'] = "Usuario o contraseña incorrectos.";
+            $data['error'] = "unavailable";
+           // View::render("users/login", $data);
+           header("Location:index.php?error=" . $data['error']);
         }
     }
 
@@ -35,6 +43,7 @@ class LoginController{
     public function logout(){
         $this->user->logout();
         $data['info'] = "Sesión cerrada.";
-        View::render("users/login", $data);
+        //View::render("users/login", $data);
+        header("Location:index.php?message=" . $data['info']);
     }
 }

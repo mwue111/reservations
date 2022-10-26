@@ -25,13 +25,22 @@ class timeSlotsController{
         $this->ts = new TimeSlots();
     }
 
-    public function showTimeSlots($text = null){
-        if(isset($_REQUEST['message'])){
-            echo '<strong>' . $_REQUEST['message'] . '</strong><br><br><a href="index.php?controller=timeSlotsController&action=showTimeSlots">Cerrar</a>';
+    public function showTimeSlots(){
+        if(isset($_SESSION['idUser'])){
+            if(isset($_SESSION['name'])){
+                $data['name'] = $_SESSION['name'];
+            }
+            if(isset($_REQUEST['message'])){
+                $data['message'] = $_REQUEST['message'];
+            }
+    
+            $data['timeList'] = $this->ts->getAll();
+            View::render('time_slots/show', $data);
         }
-
-        $data['timeList'] = $this->ts->getAll();
-        View::render('time_slots/show', $data);
+        else{
+            $data['error'] = "Debes iniciar sesión para poder entrar en esta sección.";
+            View::render("time_slots/show", $data);
+        }
     }
 
     public function addTimeSlot(){
@@ -56,7 +65,7 @@ class timeSlotsController{
 
         $data['info'] = "Tramo eliminado con éxito.";
         $data['delete'] = $this->ts->delete($id);
-        header("Location:index.php?controller=timeSlotsController&message=" . $data['info']);
+        header("Location:index.php?controller=timeSlotsController&action=showTimeSlots&message=" . $data['info']);
     }
 
     public function changeTime(){

@@ -10,13 +10,22 @@ class usersController{
         $this->user = new Users();
     }
 
-    public function showUsers($text = null){
-        if(isset($_REQUEST['message'])){
-            echo '<strong>' . $_REQUEST['message'] . '</strong><br><br><a href="index.php?controller=usersController&action=showUsers">Cerrar</a>';
+    public function showUsers(){
+        if(isset($_SESSION['idUser'])){
+            if(isset($_SESSION['name'])){
+                $data['name'] = $_SESSION['name'];
+            }
+            if(isset($_REQUEST['message'])){
+                $data['message'] = $_REQUEST['message'];
+            }
+            $data['usersList'] = $this->user->getAll();
+            View::render('users/show', $data);
         }
-
-        $data['usersList'] = $this->user->getAll();
-        View::render('users/show', $data);
+        else{
+            $data['error'] = "Debes iniciar sesión para poder entrar en esta sección.";
+            View::render("users/show", $data);
+        }
+        
     }
 
     public function addUser(){

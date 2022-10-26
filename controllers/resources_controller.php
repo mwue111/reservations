@@ -26,19 +26,22 @@ class resourcesController{
     public function __construct(){
         $this->resource = new Resources();
     }
-
-    public function showResources($text = null){
+    //he quitado lo de $text = null al final porque uso header.
+    public function showResources(){
         if(isset($_SESSION['idUser'])){
             if(isset($_REQUEST['message'])){
-                echo '<strong>' . $_REQUEST['message'] . '</strong><br><br><a href="index.php?controller=resourcesController">Cerrar</a>';
+                $data['message'] = $_REQUEST['message'];
             }
-            
+            if(isset($_SESSION['name'])){
+                $data['name'] = $_SESSION['name'];
+            }
             $data['resourcesList'] = $this->resource->getAll();
             View::render("resource/show", $data);
         }
         else{
-            $data['error'] = 'No tienes permiso para ves esto todavía.';
-            header("Location:index.php?controller=loginController&action=formLogin");
+            $data['error'] = "Debes iniciar sesión para poder entrar en esta sección.";
+            View::render("resource/show", $data);
+            //header("Location:index.php?controller=loginController&action=formLogin&message=" . $data['error']);
         }
         
     }
@@ -88,6 +91,6 @@ class resourcesController{
         
         $data['edit'] = $this->resource->editResource($id, $name, $description, $location, $image);
         $data['info'] = "Recurso editado con éxito.";
-        header("Location:index.php?controller=resourcesController&message=" . $data['info']);
+        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
     }
 }

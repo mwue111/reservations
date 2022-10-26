@@ -40,7 +40,7 @@ if(isset($data['action'])){
         <br>
         <label for="userType">Tipo:</label>
         <br>
-        <input type="number" name="userType" value="' . $oldType . '" required>
+        <input type="text" name="userType" value="' . $oldType . '" required>
         <br>
         <br>
         <input type="submit" value="Enviar">

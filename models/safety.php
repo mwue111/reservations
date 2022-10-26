@@ -4,8 +4,9 @@
 
 class Safety{
 
-    public static function login($id){
+    public static function login($id, $name){
         $_SESSION['idUser'] = $id;
+        $_SESSION['name'] = $name;
     }
     
     public static function logout(){
