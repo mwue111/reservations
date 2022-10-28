@@ -18,6 +18,9 @@ class usersController{
             if(isset($_REQUEST['message'])){
                 $data['message'] = $_REQUEST['message'];
             }
+            if(isset($_SESSION['type'])){
+                $data['type'] = $_SESSION['type'];
+            }
             $data['usersList'] = $this->user->getAll();
             View::render('users/show', $data);
         }
@@ -29,6 +32,9 @@ class usersController{
     }
 
     public function addUser(){
+        if(isset($_SESSION['name'])){
+            $data['name'] = $_SESSION['name'];
+        }
         $data['info'] = 'Añadir usuario/a';
         $data['action'] = 'insertUser';
         View::render("users/add", $data);
@@ -55,6 +61,9 @@ class usersController{
     }
 
     public function changeUser(){
+        if(isset($_SESSION['name'])){
+            $data['name'] = $_SESSION['name'];
+        }
         $data['info'] = 'Modificar usuario/a';
         $data['action'] = 'editUser';
         $id = $_REQUEST['id'];
@@ -71,6 +80,18 @@ class usersController{
 
         $data['edit'] = $this->user->editUser($id, $username, $pass, $realname, $type);
         $data['info'] = "Usuario/a modificado/a con éxito.";
+        header("Location:index.php?controller=usersController&action=showUsers&message=" . $data['info']);
+    }
+
+    //función que lleva a la vista en la que se ven todos los recursos reservador por un usuario
+    public function myReservations(){
+        $data['info'] = 'En construcción :)';
+        header("Location:index.php?message=" . $data['info']);
+    }
+
+    //función que muestra las reservas de todos los usuarios
+    public function usersReservations(){
+        $data['info'] = 'En construcción :)';
         header("Location:index.php?controller=usersController&action=showUsers&message=" . $data['info']);
     }
 }

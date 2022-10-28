@@ -15,13 +15,13 @@ class Users extends Model{
     }
 
     public function addUser($username, $pass, $realname, $type){
-        $query = "INSERT INTO users(username, password, realname, type) VALUES('$username', '$pass', '$realname', $type)";
+        $query = "INSERT INTO users(username, password, realname, type) VALUES('$username', '$pass', '$realname', '$type')";
 
         return $this->db->dataManipulation($query);
     }
 
     public function editUser($id, $username, $pass, $realname, $type){
-        $query = "UPDATE users SET username = '$username', password = '$pass', realname = '$realname', type = $type WHERE id = $id";
+        $query = "UPDATE users SET username = '$username', password = '$pass', realname = '$realname', type = '$type' WHERE id = $id";
 
         return $this->db->dataManipulation($query);
     }
@@ -36,8 +36,9 @@ class Users extends Model{
             foreach($result as $userSession){
                 $id = $userSession['id'];
                 $name = $userSession['username'];
+                $type = $userSession['type'];
             }
-            Safety::login($id, $name);
+            Safety::login($id, $name, $type);
             return true;
         }
         else{

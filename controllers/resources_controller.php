@@ -35,6 +35,9 @@ class resourcesController{
             if(isset($_SESSION['name'])){
                 $data['name'] = $_SESSION['name'];
             }
+            if(isset($_SESSION['type'])){
+                $data['type'] = $_SESSION['type'];
+            }
             $data['resourcesList'] = $this->resource->getAll();
             View::render("resource/show", $data);
         }
@@ -48,6 +51,9 @@ class resourcesController{
 
     //esta función sólo llama a la vista con el formulario
     public function addResource(){
+        if(isset($_SESSION['name'])){
+            $data['name'] = $_SESSION['name'];
+        }
         $data['info'] = "Añadir recurso";
         $data['action'] = "insertResource";
         View::render("resource/add", $data);
@@ -74,6 +80,9 @@ class resourcesController{
     }
 
     public function changeResource(){
+        if(isset($_SESSION['name'])){
+            $data['name'] = $_SESSION['name'];
+        }
         $data['action'] = "editResource";
         $data['info'] = "Editar recurso";
         $id = $_REQUEST['id'];
@@ -91,6 +100,12 @@ class resourcesController{
         
         $data['edit'] = $this->resource->editResource($id, $name, $description, $location, $image);
         $data['info'] = "Recurso editado con éxito.";
+        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+    }
+
+    //función para reservar un recurso
+    public function bookResource(){
+        $data['info'] = 'En construcción :)';
         header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
     }
 }

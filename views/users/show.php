@@ -1,4 +1,6 @@
 <?php   //vista para mostrar usuarios
+$route = "index.php?controller=usersController&action=deleteUser&id=";
+
 if(isset($data['error'])){
     echo $data['error'] . '<br><br><a href="index.php">Iniciar sesión</a>';
 }
@@ -9,7 +11,7 @@ else{
         echo $data['info'];
     }
     if(isset($data['message'])){
-        echo '<strong>' . $data['message'] . '</strong><br><br><a href="index.php?controller=usersController&action=showUsers">Cerrar</a>';
+        echo '<h3>' . $data['message'] . '</h3><a href="index.php?controller=usersController&action=showUsers">Cerrar</a>';
     }
 
     echo '<h2>Lista de usuarios</h2>
@@ -28,7 +30,7 @@ else{
                 <td>' . $user['username'] . '</td>
                 <td>' . $user['realname'] . '</td>
                 <td>' . $user['type'] . '</td>
-                <td><a href="index.php?controller=usersController&action=deleteUser&id=' . $user['id'] . '">Eliminar</a></td>
+                <td><a href="#" onclick="confirmErase(' . $user['id'] . ', \'' . $route . '\')">Eliminar</a></td>
                 <td><a href="index.php?controller=usersController&action=changeUser&id=' . $user['id'] . '">Modificar</a></td>
             </tr>';
     }

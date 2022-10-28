@@ -4,7 +4,7 @@ if(isset($data['info'])){
     echo '<h2>' . $data['info'] . '</h2>';
 }
 if(isset($data['message'])){
-    echo '<p>' . $data['message'] . '</p>';
+    echo '<h3>' . $data['message'] . '</h3>';
 }
 if(isset($data['error'])){
     echo '<h3 style="color:red;">Usuario o contraseña incorrectos.</h3>';

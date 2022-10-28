@@ -43,7 +43,6 @@ class LoginController{
     public function logout(){
         $this->user->logout();
         $data['info'] = "Sesión cerrada.";
-        //View::render("users/login", $data);
         header("Location:index.php?message=" . $data['info']);
     }
 }

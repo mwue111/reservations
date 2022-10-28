@@ -40,7 +40,24 @@ if(isset($data['action'])){
         <br>
         <label for="userType">Tipo:</label>
         <br>
-        <input type="text" name="userType" value="' . $oldType . '" required>
+        <select name="userType">';
+            if(isset($data['oldUser'])){
+                if($oldType == "admin"){
+                    echo '<option value = "admin" selected>Administrador/a</option>
+                        <option value = "user">Usuario/a</option>';
+                }
+                else{
+                    echo '<option value = "user" selected>Usuario/a</option>
+                        <option value = "admin">Administrador/a</option>';
+                }
+            }
+            else{
+                echo '
+                    <option value="admin">Administrador/a</option>
+                    <option value="user">Usuario/a</option>';
+            }
+        echo '
+        </select>
         <br>
         <br>
         <input type="submit" value="Enviar">
@@ -48,5 +65,10 @@ if(isset($data['action'])){
         <br>
         <a href="index.php?controller=usersController&action=showUsers">Volver</a>';
 
-    
+ //tipo:    <input type="text" name="userType" value="' . $oldType . '" required>
+ /*
+ 
+ 
+ 
+ */
 }

@@ -33,6 +33,9 @@ class timeSlotsController{
             if(isset($_REQUEST['message'])){
                 $data['message'] = $_REQUEST['message'];
             }
+            if(isset($_SESSION['type'])){
+                $data['type'] = $_SESSION['type'];
+            }
     
             $data['timeList'] = $this->ts->getAll();
             View::render('time_slots/show', $data);
@@ -44,6 +47,9 @@ class timeSlotsController{
     }
 
     public function addTimeSlot(){
+        if(isset($_SESSION['name'])){
+            $data['name'] = $_SESSION['name'];
+        }
         $data['info'] = 'Añadir tramo';
         $data['action'] = 'insertTime';
         View::render("time_slots/add", $data);
@@ -69,6 +75,9 @@ class timeSlotsController{
     }
 
     public function changeTime(){
+        if(isset($_SESSION['name'])){
+            $data['name'] = $_SESSION['name'];
+        }
         $data['info'] = 'Modificar tramo';
         $data['action'] = 'editTime';
         //este método tiene que llamar al método get($id)
