@@ -86,12 +86,14 @@ class usersController{
     //función que lleva a la vista en la que se ven todos los recursos reservador por un usuario
     public function myReservations(){
         $data['info'] = 'En construcción :)';
-        header("Location:index.php?message=" . $data['info']);
+        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        //header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
     }
 
     //función que muestra las reservas de todos los usuarios
     public function usersReservations(){
         $data['info'] = 'En construcción :)';
-        header("Location:index.php?controller=usersController&action=showUsers&message=" . $data['info']);
+        View::render("resource/my-reservations", $data);
+        
     }
 }

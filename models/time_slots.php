@@ -19,9 +19,14 @@ class timeSlots extends Model{
 
     public function editTime($id, $day, $startTime, $endTime){
         $query = "UPDATE time_slots SET day_of_week=$day, start_time='$startTime', end_time='$endTime' WHERE id=$id";
-        echo $query;
 
         return $this->db->dataManipulation($query);
+    }
+
+    public function selectTimeSlot($day){
+        $query = "SELECT * FROM time_slots WHERE day_of_week = $day";
+        echo $query;
+        return $this->db->dataQuery($query);
     }
 
 }

@@ -103,9 +103,24 @@ class resourcesController{
         header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
     }
 
+    public function showReservationForm(){
+        if(isset($_SESSION['name']) && isset($_SESSION['type'])){
+            $data['name'] = $_SESSION['name'];
+            $data['type'] = $_SESSION['type'];
+        }
+        if(isset($_REQUEST['selected'])){
+            $data['selected'] = $_REQUEST['selected'];
+        }
+        if(isset($_REQUEST['id'])){
+            $id = $_REQUEST['id'];
+            $data['resource'] = $this->resource->get($id);
+        }
+        View::render("resource/my-reservations", $data);
+    }
+
     //función para reservar un recurso
     public function bookResource(){
-        $data['info'] = 'En construcción :)';
-        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+      $data['info'] = 'En construcción :)';
+      header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
     }
 }

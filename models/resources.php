@@ -89,4 +89,9 @@ class Resources extends Model{
         }
         */
     }
+
+    //función para reservar un recurso
+    public function bookResource(){
+        
+    }
 }

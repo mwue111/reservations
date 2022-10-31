@@ -45,7 +45,7 @@ else{
                         <td><a href="index.php?controller=resourcesController&action=changeResource&id=' . $resource['id'] . '">Editar</a></td>';
                 }
                 else{
-                    echo '<td><a href="index.php?controller=resourcesController&action=bookResource&id=>' . $resource['id'] . '">Reservar</a></td>';
+                    echo '<td><a href="index.php?controller=resourcesController&action=showReservationForm&id=' . $resource['id'] . '">Reservar</a></td>';
                 }
         echo '</tr>';
     }
