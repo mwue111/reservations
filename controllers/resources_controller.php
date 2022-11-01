@@ -107,12 +107,22 @@ class resourcesController{
         if(isset($_SESSION['name']) && isset($_SESSION['type'])){
             $data['name'] = $_SESSION['name'];
             $data['type'] = $_SESSION['type'];
+
+            //se carga el modelo de time_slots para que la información sobre días y horarios esté disponible
+            include_once("models/time_slots.php");
+            //se crea un nuevo objeto de time_slots
+            $ts = new TimeSlots();
+            
+            if(isset($_REQUEST['id'])){
+                $id = $_REQUEST['id'];
+                $data['resource'] = $this->resource->get($id);
+            }
+
+            //obtenemos todos los periodos de tiempo disponibles desde la base de datos
+            $data['ts'] = $ts->getAll();
+            View::render("resource/my_reservations", $data);
         }
-        if(isset($_REQUEST['id'])){
-            $id = $_REQUEST['id'];
-            $data['resource'] = $this->resource->get($id);
-        }
-        View::render("resource/my-reservations", $data);
+        
     }
 
     //función para reservar un recurso

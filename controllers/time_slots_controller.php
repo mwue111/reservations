@@ -103,11 +103,13 @@ class timeSlotsController{
             $data['name'] = $_SESSION['name'];
             $data['type'] = $_SESSION['type'];
         }
+        /* Esto lo recibe desde JS, pero me falta el id del recurso (seguramente entre otras cosas)
         if(isset($_REQUEST['selected'])){
             $selectedDay = $_REQUEST['selected'];
             $data['selected'] = $this->ts->selectTimeSlot($selectedDay);
             View::render("resource/my-reservations", $data);
         }
+        */
     }
 
     //función que recibe la info desde la vista my-reservations (el formulario)
