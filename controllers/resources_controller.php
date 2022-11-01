@@ -108,9 +108,6 @@ class resourcesController{
             $data['name'] = $_SESSION['name'];
             $data['type'] = $_SESSION['type'];
         }
-        if(isset($_REQUEST['selected'])){
-            $data['selected'] = $_REQUEST['selected'];
-        }
         if(isset($_REQUEST['id'])){
             $id = $_REQUEST['id'];
             $data['resource'] = $this->resource->get($id);

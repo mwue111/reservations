@@ -24,7 +24,7 @@ class timeSlots extends Model{
     }
 
     public function selectTimeSlot($day){
-        $query = "SELECT * FROM time_slots WHERE day_of_week = $day";
+        $query = "SELECT start_time, end_time FROM time_slots WHERE day_of_week = $day;";
         echo $query;
         return $this->db->dataQuery($query);
     }

@@ -99,10 +99,13 @@ class timeSlotsController{
 
     //función que muestra los time slots disponibles para cada día en la vista my-reservations
     public function selectTimeSlots(){
+        if(isset($_SESSION['name']) && isset($_SESSION['type'])){
+            $data['name'] = $_SESSION['name'];
+            $data['type'] = $_SESSION['type'];
+        }
         if(isset($_REQUEST['selected'])){
             $selectedDay = $_REQUEST['selected'];
             $data['selected'] = $this->ts->selectTimeSlot($selectedDay);
-            //header("Location:index.php?controller=resourcesController&action=showReservationForm");
             View::render("resource/my-reservations", $data);
         }
     }
