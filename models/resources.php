@@ -91,7 +91,25 @@ class Resources extends Model{
     }
 
     //función para reservar un recurso
-    public function bookResource(){
+    public function bookResource($selectedResource, $user, $selectedTS, $selectedDay, $remarks){
+        $query = "INSERT INTO reservations(id_resource, id_user, id_time_slot, date, remarks) VALUES($selectedResource, $user, $selectedTS, '$selectedDay', '$remarks');";
+        echo $query;
+        $result = $this->db->dataManipulation($query);
+    
+        return $result;
+    }
+
+    public function editReservation($resourceId, $newDay, $newTS, $newRemark, $user){
+        $query = "UPDATE reservations SET id_time_slot = $newTS, date = '$newDay', remarks = $newRemark WHERE id_resources = $resourceId;";
         
+        //$result = $this->db->dataManipulation($query);
+        return $result;
+    }
+
+    public function deleteReservation($id){
+        //¿puedo hacer uso del delete($id) del padre cambiando la tabla desde aquí?
+        $query = "DELETE FROM reservations WHERE id_resource = $id";
+        $result = $this->db->dataManipulation($query);
+        return $result;
     }
 }

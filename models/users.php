@@ -47,6 +47,12 @@ class Users extends Model{
         
     }
 
+    public function getReservations($id){
+        $query = "SELECT reservations.id_resource, reservations.id_time_slot, reservations.date, resources.name, time_slots.start_time, time_slots.end_time, time_slots.day_of_week FROM reservations LEFT JOIN time_slots ON time_slots.id = reservations.id_time_slot INNER JOIN users ON reservations.id_user = users.id INNER JOIN resources ON reservations.id_resource = resources.id WHERE users.id = $id;";
+        
+        return $this->db->dataQuery($query);
+    }
+
     public function logout(){
         Safety::logout();
     }

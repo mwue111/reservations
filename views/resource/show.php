@@ -55,5 +55,14 @@ else{
     //var_dump($_SESSION['name']);
     
     echo '</table><br>
-        <a href="index.php?controller=resourcesController&action=addResource">Añadir recurso</a>';
+        <a href="index.php?controller=resourcesController&action=addResource" class="addResource" id="add">Añadir recurso</a>';
+
+    //Hecho con JS para que no me cambie de sitio el pie de página al esconder el link de añadir recurso para usuarios.
+    if($type == 'user'){
+        echo '<script>
+                document.getElementById("add").style.display = "none";
+            </script>';
+    }
 }
+
+

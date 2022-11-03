@@ -1,3 +1,4 @@
 <?php
 
-echo '<p>Pie de página</p>';
+echo '</body>
+    <p>Pie de página</p>';
