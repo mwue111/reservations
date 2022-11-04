@@ -16,7 +16,8 @@ echo '
             if($data['type'] == "admin"){
                 echo '<li style="display: inline-block;"><a href="index.php?controller=timeSlotsController&action=showTimeSlots">Tramos horarios</a></li>
                     <li style="display: inline-block;"><a href="index.php?controller=usersController&action=showUsers">Usuarios</a></li>
-                    <li style="display: inline-block;"><a href="index.php?controller=usersController&action=usersReservations">Reservas de usuarios</a></li>';
+                    <li style="display: inline-block;"><a href="index.php?controller=usersController&action=usersReservations">Reservas de usuarios</a></li>
+                    <li style="display: inline-block;"><a href="index.php?controller=usersController&action=myReservations">Mis reservas</a></li>';
             }
             else{
                 echo '<li style="display: inline-block;"><a href="index.php?controller=usersController&action=myReservations">Mis reservas</a></li>';   

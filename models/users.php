@@ -53,6 +53,14 @@ class Users extends Model{
         return $this->db->dataQuery($query);
     }
 
+    public function getAllReservations(){
+        $query = "SELECT users.id AS id_user, users.username AS username, resources.id AS id_resource, resources.name AS resource, time_slots.day_of_week AS day_of_week, reservations.date as date, time_slots.id as idTS, CONCAT_WS('-', time_slots.start_time, time_slots.end_time) as time_slot, users.type AS user_type FROM reservations INNER JOIN users ON reservations.id_user = users.id INNER JOIN resources ON reservations.id_resource = resources.id INNER JOIN time_slots ON reservations.id_time_slot = time_slots.id;";
+
+        $result = $this->db->dataQuery($query);
+
+        return $result;
+    }
+
     public function logout(){
         Safety::logout();
     }

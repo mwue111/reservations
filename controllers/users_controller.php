@@ -83,22 +83,29 @@ class usersController{
         header("Location:index.php?controller=usersController&action=showUsers&message=" . $data['info']);
     }
 
-    //función que lleva a la vista en la que se ven todos los recursos reservador por un usuario tipo user
+    //función para ver las reservas hechas por un usuario
     public function myReservations(){
         if(isset($_SESSION['idUser']) && isset($_SESSION['name']) && isset($_SESSION['type'])){
             $id = $_SESSION['idUser'];
             $data['name'] = $_SESSION['name'];
             $data['type'] = $_SESSION['type'];
+            $data['info'] = "Bienvenido/a, " . $data['name'];
             
             $data['userReservations'] = $this->user->getReservations($id);
             View::render("users/user_reservations", $data);
         }
     }
 
-    //función que muestra las reservas de todos los usuarios tipo admin
+    //función que muestra las reservas de todos los usuarios (para tipo admin)
     public function usersReservations(){
-        $data['info'] = 'En construcción :)';
-        View::render("resource/my-reservations", $data);
+        if(isset($_SESSION['name']) && isset($_SESSION['type'])){
+            $data['name'] = $_SESSION['name'];
+            $data['type'] = $_SESSION['type'];
+        }
+
+        $data['allReservations'] = $this->user->getAllReservations();
+        $data['info'] = 'Bienvenido/a, ' . $data['name'];
+        View::render("users/user_reservations", $data);
         
     }
 }

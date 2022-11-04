@@ -1,5 +1,5 @@
 
-<?php       //vista de la sección mis reservas
+<?php       //vista de la sección para hacer reservas
 if(isset($data['info'])){
     echo '<h2>' . $data['info'] . ' ';
 }
@@ -28,7 +28,7 @@ if(isset($data['resource']) && (isset($data['ts']))){
         $idTS = $detailedTS['id'];
     }
 //formulario que envía los datos de la reserva a la función bookResource, que será la que haga los inserts en la tabla reservations
-//El select llama a la función JS showTImeSlots que pintará en el segundo select las horas disponibles
+//El select llama a la función JS showTimeSlots que pintará en el segundo select las horas disponibles
 if(isset($data['action'])){
     if($data['action'] == "bookResource"){
         echo '<h3>Días y horarios de reserva disponibles</h3>';
@@ -41,7 +41,8 @@ if(isset($data['action'])){
 
 echo '<input type = "hidden" name = "resourceId" value = "' . $resourceDetails['id'] . '">';
 
-    if($data['action'] == "editReservation"){
+if($data['action'] == "editReservation"){
+        echo '<p style="border:1px dotted black;">Habías reservado de ' . $startTime . ' a ' . $endTime . '</p>';
         echo '<input type="date" name="selectDay" id="selectDay" value=' . $date . ' onchange="showTimeSlots(' . $date . ')">
         <select name="selectTS" id="selectTS">
             <option value="' . $idTS . '" selected></option>
@@ -51,11 +52,11 @@ echo '<input type = "hidden" name = "resourceId" value = "' . $resourceDetails['
         echo '<input type = "date" name = "selectDay" id = "selectDay" onchange="showTimeSlots()">
         <select name="selectTS" id="selectTS">
             <option>Seleccione una hora</option>
-        </select>';
+        </select>
+        ';
     }
 
-echo '
-    <br>
+echo '<br>
     <br>
     <label for = "remarks">Comentarios: </label>
     <br>

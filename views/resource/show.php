@@ -26,7 +26,7 @@ else{
             <th> Ubicación </th>
             <th> Foto </th>';
             if($type == "admin"){
-                echo '<th colspan="2">Opciones</th>';
+                echo '<th colspan="3">Opciones</th>';
             }
             else{
                 echo '<th>Opciones</th>';
@@ -42,7 +42,8 @@ else{
                 <td><img src="' . $resource['image'] . '" style="width:10%;"></td>';
                 if($type == "admin"){
                     echo '<td><a href="#" onclick="confirmErase(' . $resource['id'] . ', \'' . $route . '\')">Eliminar</a></td>
-                        <td><a href="index.php?controller=resourcesController&action=changeResource&id=' . $resource['id'] . '">Editar</a></td>';
+                        <td><a href="index.php?controller=resourcesController&action=changeResource&id=' . $resource['id'] . '">Editar</a></td>
+                        <td><a href="index.php?controller=resourcesController&action=showReservationForm&id=' . $resource['id'] . '">Reservar</a></td>';
                 }
                 else{
                     echo '<td><a href="index.php?controller=resourcesController&action=showReservationForm&id=' . $resource['id'] . '">Reservar</a></td>';
