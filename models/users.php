@@ -29,7 +29,7 @@ class Users extends Model{
     public function login($name, $pass){
         $query = "SELECT * FROM users WHERE username = '$name' AND password = '$pass';";
         $result = $this->db->dataQuery($query);
-        print_r($result);
+        
         
         if(count($result) == 1){
             //se manda a la capa de seguridad el primer elemento de $result, que es el id

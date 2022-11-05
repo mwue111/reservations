@@ -12,14 +12,16 @@ class LoginController{
 
     //función para mostrar el formulario de login:
     public function formLogin(){
+        /*
         if(isset($_REQUEST['message'])){
             $data['message'] = $_REQUEST['message'];
         }
         if(isset($_REQUEST['error'])){
             $data['error'] = $_REQUEST['error'];
         }
-        $data['info'] = "Iniciar sesión";
-        View::render("users/login", $data);
+        //$data['info'] = "Iniciar sesión";
+        */
+        View::render("users/login");
     }
 
     //función que comprueba si los datos del login son correctos: si son correctos, redirige a otra vista.
@@ -34,8 +36,8 @@ class LoginController{
         }
         else{
             $data['error'] = "unavailable";
-           // View::render("users/login", $data);
-           header("Location:index.php?error=" . $data['error']);
+           View::render("users/login", $data);
+           //header("Location:index.php?error=" . $data['error']);
         }
     }
 
@@ -43,6 +45,7 @@ class LoginController{
     public function logout(){
         $this->user->logout();
         $data['info'] = "Sesión cerrada.";
-        header("Location:index.php?message=" . $data['info']);
+        View::render("users/login", $data);
+        //header("Location:index.php?message=" . $data['info']);
     }
 }
