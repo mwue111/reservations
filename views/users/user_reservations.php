@@ -6,13 +6,30 @@
 $route = "index.php?controller=resourcesController&action=eraseReservation&id=";
 
 if(isset($data['info'])){
-    echo '<h2>' . $data['info'] . '</h2>';
+    echo '<p>' . $data['info'] . '</p>';
+    if($data['type'] == "user"){
+        echo '<a href="index.php?controller=usersController&action=myReservations">Cerrar</a>';    
+    }
+    else{
+        echo '<a href="index.php?controller=usersController&action=usersReservations">Cerrar</a>';    
+    }
 }
 
+if(isset($data['title'])){
+    echo '<h2>' . $data['title'] . '</h2>';
+}
+//Para usuarios tipo user:
 if(isset($data['userReservations'])){
     $userReservations = $data['userReservations'];
     
-    echo '<p>Estas son tus reservas:</p>';
+    echo '<p>Estas son tus reservas:</p>
+    <table border = "1">
+    <tr>
+        <th>Recurso</th>
+        <th>Franja horaria</th>
+        <th>Fecha</th>
+        <th>Comentarios</th>
+        <th colspan="2">Opciones</th>';
     foreach($userReservations as $reservations){
         $idResource = $reservations['id_resource'];
         $idTS = $reservations['id_time_slot'];
@@ -26,28 +43,51 @@ if(isset($data['userReservations'])){
             case 5: $day = "Viernes"; break;
         }
     echo '<input type = "hidden" name="date" value="' . $reservations['date'] . '">
-        <ul>
-            <li>Nombre del recurso:' . $reservations['name'] . ' </li>
-            <li>Franja horaria: desde las ' . $reservations['start_time'] . ' hasta las ' . $reservations['end_time'] . ' </li>
-            <li>Fecha de reserva:' . $reservations['date'] . ', ' . $day . ' </li>
-            <li><a href="index.php?controller=resourcesController&action=changeReservation&id=' . $idResource . '&idTS=' . $idTS . '&date=' . $reservations['date'] . '">Editar reserva</a></li>
-            <li><a href="#" onclick="confirmErase(' . $idResource . ', \'' . $route  . '\')">Eliminar reserva</a></li>
-        </ul>';
+        <tr>
+            <td>' . $reservations['name'] . ' </td>
+            <td>' . $reservations['start_time'] . ' - ' . $reservations['end_time'] . ' </td>
+            <td>' . $day . ', ' . $reservations['date'] . ' </td>
+            <td>' . $reservations['remarks'] . '</td>
+            <td><a href="index.php?controller=resourcesController&action=changeReservation&id=' . $idResource . '&idTS=' . $idTS . '&date=' . $reservations['date'] . '">Editar reserva</a></td>
+            <td><a href="#" onclick="confirmReservationErase(\'' . $route . '\', ' .  $idResource . ',' . $idTS . ', \'' . $reservations['date'] . '\')">Eliminar reserva</a></td>
+        </tr>';
    }
 
+   echo '</table>';
 }
+//Para usuarios tipo admin:
 if(isset($data['allReservations'])){
-    echo '<p>Estas son todas las reservas hechas: </p>';
+    echo '<p>Estas son todas las reservas hechas: </p>
+        <table border="1">
+        <tr>
+            <th>Usuario/a</th>
+            <th>Nombre usuario/a</th>
+            <th>Recurso</th>
+            <th>Fecha reserva</th>
+            <th>Franja horaria reservada</th>
+            <th>Tipo de usuario/a</th>
+            <th colspan="2">Opciones</th>
+        </tr>';
+
     foreach ($data['allReservations'] as $allReservations){
-        echo '<ul>
-                <li>ID usuario/a: ' . $allReservations['id_user'] . '</li>
-                <li>Nombre usuario/a: ' . $allReservations['username'] . '</li>
-                <li>Recurso: ' . $allReservations['resource'] . '</li>
-                <li>Fecha reservada: ' . $allReservations['date'] . '</li>
-                <li>Franja horaria reservada: ' . $allReservations['time_slot'] . '</li>
-                <li>Tipo de usuario/a: ' . $allReservations['user_type'] . '</li>
-                <li><a href="index.php?controller=resourcesController&action=changeReservation&id=' . $allReservations['id_resource'] . '&idTS=' . $allReservations['idTS'] . '&date=' . $allReservations['date'] . '">Editar reserva</a></li>
-            <li><a href="#" onclick="confirmErase(' . $allReservations['id_resource'] . ', \'' . $route  . '\')">Eliminar reserva</a></li>
-            </ul>';
+        echo '<tr>
+                <td>' . $allReservations['id_user'] . '</td>
+                <td>' . $allReservations['username'] . '</td>
+                <td>' . $allReservations['resource'] . '</td>
+                <td>' . $allReservations['date'] . '</td>
+                <td>' . $allReservations['time_slot'] . '</td>
+                <td>' . $allReservations['user_type'] . '</td>
+                <td><a href="index.php?controller=resourcesController&action=changeReservation&id=' . $allReservations['id_resource'] . '&idTS=' . $allReservations['idTS'] . '&date=' . $allReservations['date'] . '">Editar reserva</a></td> 
+                <td><a href="#" onclick="confirmReservationErase(\'' . $route . '\', ' .  $allReservations['id_resource'] . ',' . $allReservations['idTS'] . ', \'' . $allReservations['date'] . '\')">Eliminar reserva</a></td>
+            </tr>';
     }
+
+    echo '</table>';
+
+    /*
+    index.php?controller=resourcesController&action=eraseReservation&id=' . $allReservations['id_resource'] . '&idTS=' . $allReservations['idTS'] . '&date=' . $allReservations['date'] . '
+
+
+    onclick="confirmReservationErase(' . $allReservations['id_resource'] . ', ' . $allReservations['idTS'] . ', \'' . $allReservations['date'] . '\', \'' . $route  . '\')"
+    */
 }

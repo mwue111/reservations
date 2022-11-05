@@ -38,6 +38,9 @@ class resourcesController{
             if(isset($_SESSION['type'])){
                 $data['type'] = $_SESSION['type'];
             }
+            if(isset($_REQUEST['reserved'])){
+                $data['reserved'] = $_REQUEST['reserved'];
+            }
             $data['resourcesList'] = $this->resource->getAll();
             View::render("resource/show", $data);
         }
@@ -51,32 +54,50 @@ class resourcesController{
 
     //esta función sólo llama a la vista con el formulario
     public function addResource(){
-        if(isset($_SESSION['name'])){
-            $data['name'] = $_SESSION['name'];
+        if($_SESSION['type'] == "admin"){
+            if(isset($_SESSION['name'])){
+                $data['name'] = $_SESSION['name'];
+            }
+            $data['info'] = "Añadir recurso";
+            $data['action'] = "insertResource";
+            View::render("resource/add", $data);
         }
-        $data['info'] = "Añadir recurso";
-        $data['action'] = "insertResource";
-        View::render("resource/add", $data);
+        else{
+            $data['info'] = "Qué tocas, qué intentas. >:)";
+            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        }
     }
 
     public function insertResource(){
-        //aquí recojo los datos desde el formulario
-        $name = $_REQUEST['resourceName'];
-        $description = $_REQUEST['resourceDescription'];
-        $location = $_REQUEST['resourceLocation'];
-        $image = $_FILES['resourceImage']['name'];
-
-        $data['insertResource'] = $this->resource->addResource($name, $description, $location, $image);
+        if($_SESSION['type'] == "admin"){
+            //aquí recojo los datos desde el formulario
+            $name = $_REQUEST['resourceName'];
+            $description = $_REQUEST['resourceDescription'];
+            $location = $_REQUEST['resourceLocation'];
+            $image = $_FILES['resourceImage']['name'];
     
-        $data['info'] = "Recurso subido con éxito.";
-        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+            $data['insertResource'] = $this->resource->addResource($name, $description, $location, $image);
+        
+            $data['info'] = "Recurso subido con éxito.";
+            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        }
+        else{
+            $data['info'] = "Qué tocas, qué intentas. >:)";
+            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']); 
+        }
     }
 
     public function deleteResource(){
-        $id = $_REQUEST['id'];
-        $data['info'] = "Recurso eliminado con éxito.";
-        $data['delete'] = $this->resource->delete($id);
-        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        if($_SESSION['type'] == "admin"){
+            $id = $_REQUEST['id'];
+            $data['info'] = "Recurso eliminado con éxito.";
+            $data['delete'] = $this->resource->delete($id);
+            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        }
+        else{
+            $data['info'] = "Qué tocas, qué intentas. >:)";
+            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        }
     }
 
     public function changeResource(){
@@ -141,7 +162,7 @@ class resourcesController{
 
         $data['reservation'] = $this->resource->bookResource($selectedResource, $user, $selectedTS, $selectedDay, $remarks);
         $data['info'] = "Recurso reservado con éxito.";
-        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);   
+        header("Location:index.php?controller=resourcesController&action=showResources&reserved=" . $data['info']);   
     }
 
     public function changeReservation(){
@@ -158,7 +179,8 @@ class resourcesController{
             $idTS = $_REQUEST['idTS'];
             $oldResource = $_REQUEST['id'];
             $data['resource'] = $this->resource->get($oldResource);
-            $data['ts'] = $ts->get($idTS);
+            $data['ts'] = $ts->getAll();
+            $data['oldTS'] = $ts->get($idTS);
         }
         if(isset($_REQUEST['date'])){
             $data['date'] = $_REQUEST['date'];
@@ -167,21 +189,20 @@ class resourcesController{
     }
 
     public function editReservation(){
-        //recibe datos del form
-        //UPDATE la query de la reserva almacenada
         if(isset($_SESSION['name']) && isset($_SESSION['type'])){
             $data['name'] = $_SESSION['name'];
             $data['type'] = $_SESSION['type'];
         }
-
+    
         $resourceId = $_REQUEST['resourceId'];
         $newDay = $_REQUEST['selectDay'];
         $newTS = $_REQUEST['selectTS'];
         $newRemark = $_REQUEST['remarks'];
-        $user = $_SESSION['idUser'];    //¿lo necesito? Modificar parámetros de la función si no.
-
-        $data['newReservation'] = $this->resource->editReservation($resourceId, $newDay, $newTS, $newRemark, $user);
-
+        $oldTimeSlot = $_REQUEST['idTS'];
+        $oldDate = $_REQUEST['date'];
+    
+        $data['newReservation'] = $this->resource->editReservation($resourceId, $newDay, $newTS, $newRemark, $oldTimeSlot, $oldDate);
+    
         $data['info'] = "La reserva se ha modificado con éxito.";
         header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
     }
@@ -189,9 +210,16 @@ class resourcesController{
     public function eraseReservation(){
         if(isset($_REQUEST['id'])){
             $id = $_REQUEST['id'];
-            $data['erase'] = $this->resource->deleteReservation($id);
+            $timeSlot = $_REQUEST['idTS'];
+            $date = $_REQUEST['date'];
+            $data['erase'] = $this->resource->deleteReservation($id, $timeSlot, $date);
             $data['info'] = "Reserva eliminada correctamente.";
-            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+            if($_SESSION['type'] == "user"){
+                header("Location:index.php?controller=usersController&action=myReservations&message=" . $data['info']);
+            }
+            else{
+                header("Location:index.php?controller=usersController&action=usersReservations&message=" . $data['info']);
+            }
         }
     }
 }

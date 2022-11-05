@@ -13,6 +13,9 @@ else{
     if(isset($data['message'])){
         echo '<h3>' . $data['message'] . '</h3><a href="index.php?controller=resourcesController&action=showResources">Cerrar</a>';
     }
+    if(isset($data['reserved'])){
+        echo '<h3>' . $data['reserved'] . '</h3><a href="index.php?controller=resourcesController&action=showResources">Cerrar</a><a href="index.php?controller=usersController&action=myReservations">Ver reservas</a>';
+    }
     if(isset($data['type'])){
         $type = $data['type'];
     }

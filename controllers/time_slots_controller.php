@@ -67,11 +67,17 @@ class timeSlotsController{
     }
 
     public function deleteTime(){
-        $id = $_REQUEST['id'];
-
-        $data['info'] = "Tramo eliminado con éxito.";
-        $data['delete'] = $this->ts->delete($id);
-        header("Location:index.php?controller=timeSlotsController&action=showTimeSlots&message=" . $data['info']);
+        if($_SESSION['type'] == "admin"){
+            $id = $_REQUEST['id'];
+    
+            $data['info'] = "Tramo eliminado con éxito.";
+            $data['delete'] = $this->ts->delete($id);
+            header("Location:index.php?controller=timeSlotsController&action=showTimeSlots&message=" . $data['info']);
+        }
+        else{
+            $data['info'] = "Qué tocas, qué intentas. >:)";
+            header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        }
     }
 
     public function changeTime(){
@@ -103,20 +109,5 @@ class timeSlotsController{
             $data['name'] = $_SESSION['name'];
             $data['type'] = $_SESSION['type'];
         }
-        /* Esto lo recibe desde JS, pero me falta el id del recurso (seguramente entre otras cosas)
-        if(isset($_REQUEST['selected'])){
-            $selectedDay = $_REQUEST['selected'];
-            $data['selected'] = $this->ts->selectTimeSlot($selectedDay);
-            View::render("resource/my-reservations", $data);
-        }
-        */
     }
-
-    //función que recibe la info desde la vista my-reservations (el formulario)
-    public function bookTimeSlot(){
-        
-    }
-
 }
-
-//inserción de tramos horarios: para esto se podría crear una rutina que permitiera añadir varios datos a la vez 

@@ -9,9 +9,11 @@ else{
 
 echo '
     <div style="border: 1px dotted black;">
-    <ul>
-        <li style="display: inline-block;"><a href="index.php"> Iniciar Sesión </a></li>
-        <li style="display: inline-block;"><a href="index.php?controller=resourcesController&action=showResources"> Recursos </a></li>';
+    <ul>';
+if(!isset($_SESSION['name'])){
+    echo '  <li style="display: inline-block;"><a href="index.php"> Iniciar Sesión </a></li>';
+}
+echo '<li style="display: inline-block;"><a href="index.php?controller=resourcesController&action=showResources"> Recursos </a></li>';
         if(isset($data['type'])){
             if($data['type'] == "admin"){
                 echo '<li style="display: inline-block;"><a href="index.php?controller=timeSlotsController&action=showTimeSlots">Tramos horarios</a></li>

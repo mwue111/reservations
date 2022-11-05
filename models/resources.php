@@ -99,16 +99,17 @@ class Resources extends Model{
         return $result;
     }
 
-    public function editReservation($resourceId, $newDay, $newTS, $newRemark, $user){
-        $query = "UPDATE reservations SET id_time_slot = $newTS, date = '$newDay', remarks = $newRemark WHERE id_resources = $resourceId;";
-        
-        //$result = $this->db->dataManipulation($query);
+    public function editReservation($resourceId, $newDay, $newTS, $newRemark, $oldTimeSlot, $oldDate){
+        $query = "UPDATE reservations SET id_time_slot = $newTS, date = '$newDay', remarks = '$newRemark' WHERE id_resource = $resourceId AND id_time_slot = $oldTimeSlot AND date = '$oldDate';";
+        echo $query;
+        $result = $this->db->dataManipulation($query);
         return $result;
     }
 
-    public function deleteReservation($id){
+    public function deleteReservation($id, $timeSlot, $date){
         //¿puedo hacer uso del delete($id) del padre cambiando la tabla desde aquí?
-        $query = "DELETE FROM reservations WHERE id_resource = $id";
+        $query = "DELETE FROM reservations WHERE id_resource = $id AND id_time_slot = $timeSlot AND date = '$date'";
+        echo $query;
         $result = $this->db->dataManipulation($query);
         return $result;
     }

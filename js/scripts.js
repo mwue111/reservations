@@ -4,19 +4,20 @@ function confirmErase(id, route){
     }
 }
 
+function confirmReservationErase(route, id, ts, date){
+    if(confirm("¿Deseas eliminar esta reserva?")){
+        window.location.href = route + id + "&idTS=" + ts + "&date=" + date;
+        //"index.php?controller=resourcesController&action=eraseReservation&id="
+    }
+}
+
 function showTimeSlots(oldDay = null){
    var selectD = document.getElementById('selectDay');
    var selectTS = document.getElementById('selectTS');
    selectTS.innerHTML = "";
    //Duda: que cargue directamente las franjas horarias preseleccionando una
-    if(oldDay == null){
-        var daySelected = selectD.value;
-    }
-    else if(oldDay != null){
-        daySelected = selectD.value;
-    }
-
-    var day = new Date(daySelected).getDay();
+   var daySelected = selectD.value;
+   var day = new Date(daySelected).getDay();
 
    console.log(day, timeSlot);
    var arrayTS = [];
