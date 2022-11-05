@@ -7,14 +7,17 @@ if(isset($data['error'])){
 else{
     $resourcesList = $data['resourcesList'];
 
-    if(isset($data['info'])){
+    /*if(isset($data['info'])){
         echo $data['info'];
-    }
+    }*/
     if(isset($data['message'])){
         echo '<h3>' . $data['message'] . '</h3><a href="index.php?controller=resourcesController&action=showResources">Cerrar</a>';
     }
     if(isset($data['reserved'])){
-        echo '<h3>' . $data['reserved'] . '</h3><a href="index.php?controller=resourcesController&action=showResources">Cerrar</a><a href="index.php?controller=usersController&action=myReservations">Ver reservas</a>';
+        echo '<h3>' . $data['reserved'] . '</h3><a href="index.php?controller=resourcesController&action=showResources">Cerrar</a><a href="index.php?controller=usersController&action=myReservations">Ver tus reservas</a>';
+        if($data['type'] == "admin"){
+            echo '<a href="index.php?controller=usersController&action=usersReservations">Ver todas las reservas</a>';
+        }
     }
     if(isset($data['type'])){
         $type = $data['type'];

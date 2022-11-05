@@ -44,5 +44,7 @@ else{
     }
     
     echo '</table><br>
-        <a href="index.php?controller=timeSlotsController&action=addTimeSlot">Añadir nuevo tramo</a>';
+        <a href="index.php?controller=timeSlotsController&action=addTimeSlot">Añadir nuevo tramo</a>
+        <br>
+        <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
 }

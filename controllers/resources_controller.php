@@ -158,7 +158,7 @@ class resourcesController{
         $selectedDay = $_REQUEST['selectDay'];
         $selectedTS = $_REQUEST['selectTS'];
         $user = $_SESSION['idUser'];
-        $remarks = $_REQUEST['remarks'];
+        $remarks = Safety::clean($_REQUEST['remarks']);
 
         $data['reservation'] = $this->resource->bookResource($selectedResource, $user, $selectedTS, $selectedDay, $remarks);
         $data['info'] = "Recurso reservado con éxito.";
@@ -197,14 +197,14 @@ class resourcesController{
         $resourceId = $_REQUEST['resourceId'];
         $newDay = $_REQUEST['selectDay'];
         $newTS = $_REQUEST['selectTS'];
-        $newRemark = $_REQUEST['remarks'];
+        $newRemark = Safety::clean($_REQUEST['remarks']);
         $oldTimeSlot = $_REQUEST['idTS'];
         $oldDate = $_REQUEST['date'];
     
         $data['newReservation'] = $this->resource->editReservation($resourceId, $newDay, $newTS, $newRemark, $oldTimeSlot, $oldDate);
     
         $data['info'] = "La reserva se ha modificado con éxito.";
-        header("Location:index.php?controller=resourcesController&action=showResources&message=" . $data['info']);
+        header("Location:index.php?controller=resourcesController&action=showResources&reserved=" . $data['info']);
     }
 
     public function eraseReservation(){

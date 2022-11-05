@@ -19,7 +19,7 @@ echo '
         <br>
         <label for="userPass">Contraseña: </label>
         <br>
-        <input type="text" name="userPass">
+        <input type="password" name="userPass">
         <br>
         <br>
         <input type="submit" value="Acceder">

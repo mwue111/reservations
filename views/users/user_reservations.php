@@ -1,8 +1,5 @@
 <?php   //vista de las reservas de cada usuario: calendario
 
-//*deben verse los detalles de la reserva: qué se ha reservado, qué día y a qué hora.
-//deben poder modificarse y *eliminarse las reservas
-
 $route = "index.php?controller=resourcesController&action=eraseReservation&id=";
 
 if(isset($data['info'])){
@@ -51,9 +48,12 @@ if(isset($data['userReservations'])){
             <td><a href="index.php?controller=resourcesController&action=changeReservation&id=' . $idResource . '&idTS=' . $idTS . '&date=' . $reservations['date'] . '">Editar reserva</a></td>
             <td><a href="#" onclick="confirmReservationErase(\'' . $route . '\', ' .  $idResource . ',' . $idTS . ', \'' . $reservations['date'] . '\')">Eliminar reserva</a></td>
         </tr>';
-   }
-
-   echo '</table>';
+        
+    }
+    
+    echo '</table>
+    <br>
+    <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
 }
 //Para usuarios tipo admin:
 if(isset($data['allReservations'])){
@@ -82,12 +82,6 @@ if(isset($data['allReservations'])){
             </tr>';
     }
 
-    echo '</table>';
-
-    /*
-    index.php?controller=resourcesController&action=eraseReservation&id=' . $allReservations['id_resource'] . '&idTS=' . $allReservations['idTS'] . '&date=' . $allReservations['date'] . '
-
-
-    onclick="confirmReservationErase(' . $allReservations['id_resource'] . ', ' . $allReservations['idTS'] . ', \'' . $allReservations['date'] . '\', \'' . $route  . '\')"
-    */
+    echo '</table>
+    <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
 }

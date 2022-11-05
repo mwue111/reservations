@@ -24,8 +24,8 @@ class LoginController{
 
     //función que comprueba si los datos del login son correctos: si son correctos, redirige a otra vista.
     public function checkLogin(){
-        $name = $_REQUEST['userName'];
-        $pass = $_REQUEST['userPass'];
+        $name = Safety::clean($_REQUEST['userName']);
+        $pass = Safety::clean($_REQUEST['userPass']);
     
         $result = $this->user->login($name, $pass);
 

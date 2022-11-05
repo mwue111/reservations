@@ -55,29 +55,28 @@ if(isset($data['resource']) && (isset($data['ts']))){
         else{
             echo '<h3>Días y horarios reservados</h3>';
         }
-        echo'<form action="index.php?controller=resourcesController&action=' . $data['action'] . '" method="POST" enctype="multipart/form-data">';
-    }
+        echo'<form action="index.php?controller=resourcesController&action=' . $data['action'] . '" method="POST" enctype="multipart/form-data">';    
     
     echo '<input type = "hidden" name = "resourceId" value = "' . $resourceDetails['id'] . '">
     <input type="hidden" name="idTS" value="' . $old . '">
     <input type="hidden" name="date" value="' . $date . '">';
     
-    if($data['action'] == "editReservation"){
+        if($data['action'] == "editReservation"){
         //echo '<p style="border:1px dotted black;">Habías reservado el día ' . $date . ', de ' . $startTime . ' a ' . $endTime . '</p>';
         
         echo '<input type="date" name="selectDay" id="selectDay" onchange="showTimeSlots(\'' . $date . '\')" value=' . $date . '>
         <select name = "selectTS" id = "selectTS">
-        <option value="' . $old . '" selected>' . $startTime . ' - ' . $endTime . '</option>
+            <option value="' . $old . '" selected>' . $startTime . ' - ' . $endTime . '</option>
         </select>';
-    }
-    else{
-            echo '<input type = "date" name = "selectDay" id = "selectDay" onchange="showTimeSlots()">
+        }
+        else{
+            echo '<input type="date" name="selectDay" id="selectDay" onchange="showTimeSlots()">
             <select name="selectTS" id="selectTS">
-            <option>Seleccione una hora</option>
+                <option></option>
             </select>
             ';
         }
-        
+    }    
         echo '<br>
         <br>
         <label for = "remarks">Comentarios: </label>
@@ -101,17 +100,8 @@ if(isset($data['resource']) && (isset($data['ts']))){
             }
         }
         
-
-        echo '<script>
-        window.addEventListener("load", showTimeSlots("' . $date . '"));
-        </script>';
+echo '<script>
+    window.addEventListener("load", showTimeSlots("' . $date . '"));
+    </script>';
     
-    }
-    
-    /*
-    //Esto funciona exactamente como con la reserva
-    echo '<input type="date" name="selectDay" id="selectDay" onchange="showTimeSlots()">
-    <select name="selectTS" id="selectTS">
-        <option>Seleccione una hora</option>
-    </select>'>
-    */
+}

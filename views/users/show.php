@@ -36,5 +36,7 @@ else{
     }
 
     echo '</table><br>
-        <a href="index.php?controller=usersController&action=addUser">Añadir nuevo/a usuario/a</a>';
+        <a href="index.php?controller=usersController&action=addUser">Añadir nuevo/a usuario/a</a>
+        <br>
+        <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
 }
