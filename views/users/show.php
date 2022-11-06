@@ -1,5 +1,7 @@
 <?php   //vista para mostrar usuarios
 $route = "index.php?controller=usersController&action=deleteUser&id=";
+echo '<div class="container">
+        <div class="row">';
 
 if(isset($data['error'])){
     echo $data['error'] . '<br><br><a href="index.php">Iniciar sesión</a>';
@@ -14,15 +16,18 @@ else{
         echo '<h3>' . $data['message'] . '</h3><a href="index.php?controller=usersController&action=showUsers">Cerrar</a>';
     }
 
-    echo '<h2>Lista de usuarios</h2>
-        <table border="1">
+    echo '<h2 class="m-3">Lista de usuarios</h2>
+        <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-lignt">
         <tr>
             <th>ID</th>
             <th>Nombre de usuario/a</th>
             <th>Nombre real</th>
             <th>Tipo</th>
             <th colspan="2">Opciones</th>
-        </tr>';
+        </tr>
+        </thead>
+        <tbody>';
 
     foreach($usersList as $user){
         echo '<tr>
@@ -35,8 +40,12 @@ else{
             </tr>';
     }
 
-    echo '</table><br>
+    echo '</tbody></table><br>
+        <div class="m-3">
         <a href="index.php?controller=usersController&action=addUser">Añadir nuevo/a usuario/a</a>
         <br>
-        <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
+        <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>
+        </div>
+        </div>
+        </div>';
 }

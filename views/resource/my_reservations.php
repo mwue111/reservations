@@ -1,7 +1,12 @@
 
 <?php       //vista de la sección para hacer reservas
+echo '<div class="container">
+        <div class="row">';
+
 if(isset($data['info'])){
-    echo '<h2>' . $data['info'] . ' ';
+    echo '<div class="card">
+            <div class="card-body">
+            <h2 class="card-title">' . $data['info'] . ' ';
 }
 
 if(isset($data['resource']) && (isset($data['ts']))){
@@ -20,8 +25,8 @@ if(isset($data['resource']) && (isset($data['ts']))){
     
     foreach($resource as $resourceDetails){
         echo $resourceDetails['name'] . '</h2>
-        <p>' . $resourceDetails['description'] . '</p>
-        <img src="' . $resourceDetails['image'] . '" style="width:10%">
+        <p class="card-text">' . $resourceDetails['description'] . '</p>
+        <img src="' . $resourceDetails['image'] . '" class="rounded-circle" style="width: 100px; height: 100px">
         <br>';
     }
 
@@ -50,10 +55,10 @@ if(isset($data['resource']) && (isset($data['ts']))){
 //El select llama a la función JS showTimeSlots que pintará en el segundo select las horas disponibles
     if(isset($data['action'])){
         if($data['action'] == "bookResource"){
-            echo '<h3>Días y horarios de reserva disponibles</h3>';
+            echo '<h3 class="card-text">Días y horarios de reserva disponibles</h3>';
         }
         else{
-            echo '<h3>Días y horarios reservados</h3>';
+            echo '<h3 class="card-text">Días y horarios reservados</h3>';
         }
         echo'<form action="index.php?controller=resourcesController&action=' . $data['action'] . '" method="POST" enctype="multipart/form-data">';    
     
@@ -64,14 +69,16 @@ if(isset($data['resource']) && (isset($data['ts']))){
         if($data['action'] == "editReservation"){
         //echo '<p style="border:1px dotted black;">Habías reservado el día ' . $date . ', de ' . $startTime . ' a ' . $endTime . '</p>';
         
-        echo '<input type="date" name="selectDay" id="selectDay" onchange="showTimeSlots(\'' . $date . '\')" value=' . $date . '>
-        <select name = "selectTS" id = "selectTS">
+        echo '<input class="mt-3" type="date" name="selectDay" id="selectDay" onchange="showTimeSlots(\'' . $date . '\')" value=' . $date . '>
+        <br>
+        <select class="mt-3" name = "selectTS" id = "selectTS">
             <option value="' . $old . '" selected>' . $startTime . ' - ' . $endTime . '</option>
         </select>';
         }
         else{
-            echo '<input type="date" name="selectDay" id="selectDay" onchange="showTimeSlots()">
-            <select name="selectTS" id="selectTS">
+            echo '<input class="mt-3" type="date" name="selectDay" id="selectDay" onchange="showTimeSlots()">
+            <br>
+            <select class="mt-3" name="selectTS" id="selectTS">
                 <option></option>
             </select>
             ';
@@ -89,19 +96,25 @@ if(isset($data['resource']) && (isset($data['ts']))){
         ';
         
         if($data['action'] == "bookResource"){
-            echo '<br><a href="index.php?controller=resourcesController&action=showResources">Volver</a>';
+            echo '<br><a href="index.php?controller=resourcesController&action=showResources">Volver</a>
+                ';
         }
         else{
             if($data['type'] == "admin"){
-                echo '<br><a href="index.php?controller=usersController&action=usersReservations">Volver</a>';
+                echo '<br><a href="index.php?controller=usersController&action=usersReservations">Volver</a>
+                ';
             }
             else{
-                echo '<br><a href="index.php?controller=usersController&action=myReservations">Volver</a>';
+                echo '<br><a href="index.php?controller=usersController&action=myReservations">Volver</a>
+                ';
             }
         }
         
-echo '<script>
+echo '</div>
+</div><script>
     window.addEventListener("load", showTimeSlots("' . $date . '"));
-    </script>';
+    </script>
+    </div>
+    </div>';
     
 }

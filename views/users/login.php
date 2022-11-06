@@ -45,7 +45,7 @@ echo'
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <input type="submit" class="btn btn-dark btn-lg btn-block" value="Acceder">
+                    <input type="submit" class="btn btn-dark btn-lg btn-block" data-mdb-toggle="modal" data-mdb-target="#exampleModal" value="Acceder">
                   </div>
                 </form>
 

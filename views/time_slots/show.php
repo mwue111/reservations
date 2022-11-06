@@ -17,8 +17,12 @@ else{
         $type = $data['type'];
     }
     
-    echo '<h2>Tramos horarios</h2>
-        <table border="1">
+    echo '
+        <div class="container">
+        <div class="row">
+        <h2 class="m-3">Tramos horarios</h2>
+        <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
         <tr>
             <th>ID</th>
             <th>Día de la semana</th>
@@ -27,9 +31,15 @@ else{
             if($type == "admin"){
                 echo '<th colspan="2">Opciones</th>';
             }
-    echo '</tr>';
-    
+    echo '</tr></thead>';
     foreach($ts as $timeSlot){
+        switch($timeSlot['day_of_week']){
+            case 1: $timeSlot['day_of_week'] = "Lunes"; break;
+            case 2: $timeSlot['day_of_week'] = "Martes"; break;
+            case 3: $timeSlot['day_of_week'] = "Miércoles"; break;
+            case 4: $timeSlot['day_of_week'] = "Jueves"; break;
+            case 5: $timeSlot['day_of_week'] = "Viernes"; break;
+        }
         echo '<tr>
                 <td>' . $timeSlot['id'] . '</td>
                 <td>' . $timeSlot['day_of_week'] . '</td>
@@ -44,7 +54,11 @@ else{
     }
     
     echo '</table><br>
+        <div class="m-3">
         <a href="index.php?controller=timeSlotsController&action=addTimeSlot">Añadir nuevo tramo</a>
         <br>
-        <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
+        <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>
+        </div>
+        </div>
+        </div>';
 }

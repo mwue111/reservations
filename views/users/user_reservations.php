@@ -1,6 +1,10 @@
 <?php   //vista de las reservas de cada usuario: calendario
 
+echo '<div class="container">
+        <div class="row">';
+
 $route = "index.php?controller=resourcesController&action=eraseReservation&id=";
+
 
 if(isset($data['info'])){
     echo '<p>' . $data['info'] . '</p>';
@@ -13,20 +17,30 @@ if(isset($data['info'])){
 }
 
 if(isset($data['title'])){
-    echo '<h2>' . $data['title'] . '</h2>';
+    echo '<h2 class="m-3">' . $data['title'] . '.</h2>';
 }
 //Para usuarios tipo user:
 if(isset($data['userReservations'])){
     $userReservations = $data['userReservations'];
+    if(count($userReservations) == 0){
+        echo '<h3>¡Aún no tienes reservas!</h3>';
+    }
+    else{
+        echo '
+        <h4>Estas son tus reservas:</h4>
+        <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+        <tr>
+            <th>Recurso</th>
+            <th>Franja horaria</th>
+            <th>Fecha</th>
+            <th>Comentarios</th>
+            <th colspan="2">Opciones</th>
+        </tr>
+        </thead>';
+
+    }
     
-    echo '<p>Estas son tus reservas:</p>
-    <table border = "1">
-    <tr>
-        <th>Recurso</th>
-        <th>Franja horaria</th>
-        <th>Fecha</th>
-        <th>Comentarios</th>
-        <th colspan="2">Opciones</th>';
     foreach($userReservations as $reservations){
         $idResource = $reservations['id_resource'];
         $idTS = $reservations['id_time_slot'];
@@ -53,12 +67,17 @@ if(isset($data['userReservations'])){
     
     echo '</table>
     <br>
-    <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
+    <div class="m-3">
+    <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>
+    </div>
+    </div>
+    </div>';
 }
 //Para usuarios tipo admin:
 if(isset($data['allReservations'])){
-    echo '<p>Estas son todas las reservas hechas: </p>
-        <table border="1">
+    echo '<h4>Estas son todas las reservas hechas: </h4>
+        <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
         <tr>
             <th>Usuario/a</th>
             <th>Nombre usuario/a</th>
@@ -67,7 +86,7 @@ if(isset($data['allReservations'])){
             <th>Franja horaria reservada</th>
             <th>Tipo de usuario/a</th>
             <th colspan="2">Opciones</th>
-        </tr>';
+        </tr></thead><tbody>';
 
     foreach ($data['allReservations'] as $allReservations){
         echo '<tr>
@@ -82,6 +101,11 @@ if(isset($data['allReservations'])){
             </tr>';
     }
 
-    echo '</table>
-    <a href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>';
+    echo '</tbody></table>
+    <div class="card">
+      <a class="m-3" href="index.php?controller=resourcesController&action=showResources">Volver a listado de recursos</a>
+    </div>
+    </div>
+    </div>
+      ';
 }

@@ -1,7 +1,10 @@
 <?php   //vistas para añadir o editar recursos
+echo '<div class="container">
+        <div class="row">
+            <div class="card m-3">';
 
 if(isset($data['info'])){
-    echo '<h2>' . $data['info'] . '</h2>';
+    echo '<h2 class="m-3">' . $data['info'] . '</h2>';
 }
 
 if(isset($data['action'])){
@@ -46,6 +49,9 @@ if(isset($data['action'])){
     </form>
     <br>
     <a href="index.php?controller=resourcesController&action=showResources">Volver</a>
+    </div>
+    </div>
+    </div>
     ';
 }
 else{
