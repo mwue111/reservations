@@ -1,7 +1,8 @@
 <?php       //Vista para añadir tramos horarios
 
-//MEJORA: que escriban el día y se añada como el número que le corresponde
-//MEJORA: placeholder con el valor anterior
+echo '<div class="container">
+        <div class="row">
+            <div class="card">';
 
 if(isset($data['info'])){
     echo '<h2>' . $data['info'] . '</h2>';
@@ -42,5 +43,8 @@ if(isset($data['action'])){
         <input type="submit" value="Enviar">
     </form>
     <br>
-    <a href="index.php?controller=timeSlotsController&action=showTimeSlots">Volver</a>';
+    <a href="index.php?controller=timeSlotsController&action=showTimeSlots">Volver</a>
+    </div>
+    </div>
+    </div>';
 }

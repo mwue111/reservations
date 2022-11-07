@@ -1,5 +1,9 @@
 <?php       //vista para añadis/editar usuarias
 
+echo '<div class="container">
+        <div class="row">
+            <div class="card">';
+
 if(isset($data['info'])){
     echo '<h2>' . $data['info'] . '</h2>';
 }
@@ -63,7 +67,10 @@ if(isset($data['action'])){
         <input type="submit" value="Enviar">
         </form>
         <br>
-        <a href="index.php?controller=usersController&action=showUsers">Volver</a>';
+        <a href="index.php?controller=usersController&action=showUsers">Volver</a>
+        </div>
+        </div>
+        </div>';
 
  //tipo:    <input type="text" name="userType" value="' . $oldType . '" required>
  /*
